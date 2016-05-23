@@ -1,2 +1,5 @@
-tmp
+.idea
+temp
 node_modules
+dist
+npm-debug.log
