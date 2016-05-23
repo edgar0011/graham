@@ -42,12 +42,9 @@ module.exports = function(grunt) {
                         src: [
                             'temp',
                             '<%= config.dist %>/temp',
-                            '<%= config.dist %>/**/*.js',
+                            //'<%= config.dist %>/**/*.js',
                             '!<%= config.dist %>/*.js',
-                            '!<%= config.dist %>/*.min.js',
-                            '<%= config.dist %>/components',
-                            '<%= config.dist %>/modules',
-                            '!<%= config.dist %>/assets/**/*.js'
+                            '!<%= config.dist %>/*.min.js'
 
                         ]
                     }
@@ -63,7 +60,7 @@ module.exports = function(grunt) {
 
         concat: {
             options: {
-                separator: ';\n'
+                separator: '\n'
             },
             dist: {
                 src: [
@@ -81,7 +78,7 @@ module.exports = function(grunt) {
         uglify: {
             options: {
                 mangle: false,
-                flatten: true
+                flatten: false
             },
             dist: {
                 files: {
@@ -92,16 +89,16 @@ module.exports = function(grunt) {
 
 
         ngtemplates:  {
-            "ngCore":        {
+            "edGraham":        {
                 cwd:      '<%= config.app %>',
-                src:      ['components/**/*.html', 'modules/**/*.html'],
+                src:      ['**/*.html'],
                 dest:     '<%= config.dist %>/<%= config.temp %>/app.templates.js'
             }
         },
 
         wrap: {
             default: {
-                src: ['<%= config.dist %>/components/**/*.js', '<%= config.dist %>/modules/**/*.js'],
+                src: ['<%= config.dist %>/**/*.js', '<%= config.dist %>/*.js'],
                 dest: "",
                 options: {
                     wrapper: ['(function () {\n\'use strict\'; \n', '\n})();']
@@ -109,7 +106,7 @@ module.exports = function(grunt) {
             },
 
             release: {
-                src: ['<%= config.dist %>/<%= config.temp %>/components/**/*.js', '<%= config.dist %>/<%= config.temp %>/modules/**/*.js'],
+                src: ['<%= config.dist %>/<%= config.temp %>/**/*.js', '<%= config.dist %>/<%= config.temp %>/*.js'],
                 dest: "",
                 options: {
                     wrapper: ['(function () {\n\'use strict\'; \n', '\n})();']
@@ -118,7 +115,7 @@ module.exports = function(grunt) {
         },
 
         jshint: {
-            files: ['Gruntfile.js', '<%= config.app %>/components/**/*.js', '<%= config.app %>/modules/**/*.js', '<%= config.app %>/*.js'],
+            files: ['Gruntfile.js', '<%= config.app %>/**/*.js', '<%= config.app %>/*.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
@@ -154,98 +151,6 @@ module.exports = function(grunt) {
             }
         },
 
-        watch: {
-
-            ts: {
-                files: [
-                    'app/modules/**/*.ts',
-                    'app/components/**/*.ts'
-                ],
-                options: {
-                    debounceDelay: 2000
-                },
-                tasks: [ "ts:watch" ]
-            },
-
-            javascript: {
-                options: {
-                    livereload: true,
-                    spawn: false
-                },
-                files: [
-                    'Gruntfile.js',
-                    '<%= config.app %>/components/**/*.js',
-                    '<%= config.app %>/modules/**/*.js',
-                    '<%= config.app %>/*.js',
-                    '<%= config.app %>/**/*.json'
-                ],
-                tasks: ['editor', 'jshint']
-            },
-            html: {
-                options: {
-                    livereload: true,
-                    spawn: false
-                },
-                files: [
-                    '<%= config.app %>/**/*.html',
-                    '<%= config.app %>/components/**/*.html',
-                    '<%= config.app %>/modules/**/*.html',
-                    '<%= config.app %>/assets/**/*.html'
-                ],
-                tasks: ['editor']
-            },
-            styles: {
-                options: {
-                    livereload: true,
-                    spawn: false
-                },
-                files: [
-                    '<%= config.app %>/components/**/*.css',
-                    '<%= config.app %>/modules/**/*.css',
-                    '<%= config.app %>/styles/**/*.css'
-                ],
-                tasks: ['editor']
-            },
-            json: {
-                options: {
-                    livereload: true,
-                    spawn: false
-                },
-                files: [
-                    '<%= config.app %>/assets/**/i18n/*.json',
-                    '<%= config.app %>/components/**/i18n/*.json',
-                    '<%= config.app %>/modules/**/i18n/*.json'
-                ],
-                tasks: ['editor']
-            },
-            image: {
-                options: {
-                    livereload: true,
-                    spawn: false
-                },
-                files: [
-                    '<%= config.app %>/assets/**/*.{png,jpg,jpeg,gif}',
-                    '<%= config.app %>/components/**/*.{png,jpg,jpeg,gif}',
-                    '<%= config.app %>/modules/**/*.{png,jpg,jpeg,gif}'
-                ],
-                tasks: ['editor']
-            },
-            less: {
-                options: {
-                    livereload: true,
-                    spawn: false
-                },
-                files: [
-                    '<%= config.app %>/bower_components/bootstrap/less/bootstrap.less',
-                    '<%= config.app %>/less/*.less',
-                    '<%= config.app %>/components/**/*.less',
-                    '<%= config.app %>/modules/**/*.less'
-                ],
-                tasks: ['editor']
-
-            }
-        },
-
         less: {
             style: {
                 files: [
@@ -275,13 +180,7 @@ module.exports = function(grunt) {
                 files: [
 
                     {expand:true, cwd: '<%= config.app %>', src:['*.js'], dest:'<%= config.dist %>'},
-
-                    {expand:true, cwd: '<%= config.app %>', src:['assets/**/*.*'], dest:'<%= config.dist %>'},
-                    {expand:true, cwd: '<%= config.app %>', src:['styles/**/*.css'], dest:'<%= config.dist %>'},
-                    {expand:true, cwd: '<%= config.app %>', src:['data/**/*.*'], dest:'<%= config.dist %>'},
-
-                    {expand:true, cwd: '<%= config.app %>', src:['components/**/*.*'], dest:'<%= config.dist %>'},
-                    {expand:true, cwd: '<%= config.app %>', src:['modules/**/*.*'], dest:'<%= config.dist %>'}
+                    {expand:true, cwd: '<%= config.app %>', src:['**/*.*'], dest:'<%= config.dist %>'}
 
                 ]
             },
@@ -298,15 +197,30 @@ module.exports = function(grunt) {
                     },
 
                     {expand:true, cwd: '<%= config.app %>', src:['*.js'], dest:'<%= config.dist %>/<%= config.temp %>'},
-
-                    {expand:true, cwd: '<%= config.app %>', src:['assets/**/*.*'], dest:'<%= config.dist %>'},
-                    {expand:true, cwd: '<%= config.app %>', src:['styles/**/*.css'], dest:'<%= config.dist %>'},
-                    {expand:true, cwd: '<%= config.app %>', src:['data/**/*.*'], dest:'<%= config.dist %>'},
-
-                    {expand:true, cwd: '<%= config.app %>', src:['components/**/*.js'], dest:'<%= config.dist %>/<%= config.temp %>'},
-                    {expand:true, cwd: '<%= config.app %>', src:['modules/**/*.js'], dest:'<%= config.dist %>/<%= config.temp %>'}
+                    {expand:true, cwd: '<%= config.app %>', src:['**/*.js'], dest:'<%= config.dist %>/<%= config.temp %>'}
 
                 ]
+            },
+
+            releaseLess: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        cwd: '<%= config.app %>',
+                        dest: '<%= config.dist %>/less',
+                        src: [
+                            '**/*.less',
+                            '!main.less'
+                        ]
+                    }
+                ]
+            },
+
+            specialRelease: {
+                files: {
+                    '<%= config.dist %>/<%= pkg.name %>.js': ['<%= concat.dist.dest %>']
+                }
             }
 
         },
@@ -321,27 +235,6 @@ module.exports = function(grunt) {
             app: {
                 src: ['app/**/*.js', '!app/bower/**/*.js'],
                 title: "ngCore"
-            }
-        },
-
-        replace: {
-            release: {
-                src: ['<%= config.dist %>/*.html'],
-                overwrite: true,                 // overwrite matched source files
-                replacements: [
-                    {
-                        from: '<!-- include: "type": "js", "files": "*.js" -->', to: ''
-                    },
-                    {
-                        from: '<!-- include: "type": "js", "files": "js/**/*.js, !*.js" -->', to:''
-                    },
-                    {
-                        from: '<!-- include: "type": "css", "files": "*.css" -->', to:''
-                    },
-                    {
-                        from: '<!-- /include -->', to:''
-                    }
-                ]
             }
         }
 
@@ -366,11 +259,14 @@ module.exports = function(grunt) {
             'ngtemplates',
             'jshint',
             'copy:release',
+            'copy:releaseLess',
             'wrap:release',
             'ngAnnotate:release',
             'concat',
             //'uglify',
-            //'clean:release'
+
+            'copy:specialRelease',
+            'clean:release'
         ]);
     });
 };
