@@ -263,9 +263,8 @@ module.exports = function(grunt) {
             'wrap:release',
             'ngAnnotate:release',
             'concat',
-            //'uglify',
-
-            'copy:specialRelease',
+            'uglify',
+            //'copy:specialRelease',
             'clean:release'
         ]);
     });
