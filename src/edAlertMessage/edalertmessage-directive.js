@@ -13,7 +13,7 @@ angular.module("ed.ui.directives")
 .directive('edAlertMessage', function($timeout, edAlertMessageConstants, edMessageBus) {
 
         return {
-            templateUrl: "components/ed/edAlertMessage/edalertmessage.html",
+            templateUrl: "edAlertMessage/edalertmessage.html",
             restrict: 'EA',
             link: function(scope) {
                 var timeoutPromise;

@@ -64,13 +64,11 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    '<%= config.dist %>/<%= config.temp %>/bower/**/*.js',
-                    '<%= config.dist %>/<%= config.temp %>/components/**/*.js',
-                    '<%= config.dist %>/<%= config.temp %>/modules/*/*.js',
-                    '<%= config.dist %>/<%= config.temp %>/modules/*/*/*.js',
-                    '<%= config.dist %>/<%= config.temp %>/app.js',
-                    '<%= config.dist %>/<%= config.temp %>/*AppController.js',
-                    '<%= config.dist %>/<%= config.temp %>/**/*.js'
+
+                    '<%= config.dist %>/<%= config.temp %>/ed.ui.js',
+                    '<%= config.dist %>/<%= config.temp %>/*/*.js',
+                    '<%= config.dist %>/<%= config.temp %>/app.templates.js'
+                    //'<%= config.dist %>/<%= config.temp %>/app.templates.js'
                 ],
                 dest: '<%= config.dist %>/<%= config.temp %>/<%= pkg.name %>.js'
             }
@@ -89,7 +87,7 @@ module.exports = function(grunt) {
 
 
         ngtemplates:  {
-            "edGraham":        {
+            "ed.ui": {
                 cwd:      '<%= config.app %>',
                 src:      ['**/*.html'],
                 dest:     '<%= config.dist %>/<%= config.temp %>/app.templates.js'
@@ -228,13 +226,13 @@ module.exports = function(grunt) {
         ngdocs: {
             options: {
                 doc: 'docs',
-                title: 'ngCore Docs',
+                title: 'edGraham Docs',
                 html5Mode: false
             },
 
             app: {
                 src: ['app/**/*.js', '!app/bower/**/*.js'],
-                title: "ngCore"
+                title: "edGraham"
             }
         }
 
