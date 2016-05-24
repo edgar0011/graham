@@ -1,9 +1,11 @@
 {
   "name": "edGraham",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/ed.ui.js",
-  "files":["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "grunt build"
   },
