@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/ed.ui.js",
+  "files":["dist"],
   "scripts": {
     "build": "grunt build"
   },
