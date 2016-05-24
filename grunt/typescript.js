@@ -6,12 +6,11 @@ module.exports.tasks = {
     ts: {
         development: {
             src: [
-                'app/references.ts',
-                'app/components/**/*.ts',
-                'app/modules/**/*.ts'
+                '<%= config.app %>/references.ts',
+                '<%= config.app %>/**/*.ts'
             ],
             outDir: 'dist',
-            reference: 'app/references.ts',
+            reference: '<%= config.app %>/references.ts',
             options: {
                 module: 'amd', // or commonjs
                 target: 'es5', // or es3 or es6
@@ -24,12 +23,11 @@ module.exports.tasks = {
 
         watch: {
             src: [
-                'app/references.ts',
-                'app/components/**/*.ts',
-                'app/modules/**/*.ts'
+                '<%= config.app %>/references.ts',
+                '<%= config.app %>/**/*.ts'
             ],
             outDir: 'dist',
-            reference: 'app/references.ts',
+            reference: '<%= config.app %>/references.ts',
             options: {
                 module: 'amd', // or commonjs
                 target: 'es5', // or es3 or es6
@@ -42,12 +40,11 @@ module.exports.tasks = {
 
         release: {
             src: [
-                'app/references.ts',
-                'app/components/**/*.ts',
-                'app/modules/**/*.ts'
+                '<%= config.app %>/references.ts',
+                '<%= config.app %>/**/*.ts'
             ],
             outDir: 'dist/temp',
-            reference: 'app/references.ts',
+            reference: '<%= config.app %>/references.ts',
             options: {
                 module: 'amd', // or commonjs
                 target: 'es5', // or es3 or es6
