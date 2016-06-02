@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/edgar0011/graham.git"
   },
-  "main": "dist/ed.ui.js",
+  "main": "dist/edGraham.min.js",
   "files": [
     "dist"
   ],
