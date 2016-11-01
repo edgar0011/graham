@@ -237,7 +237,7 @@ angular.module("ed.ui.directives")
                 }
 
             } else {
-                valid = !(val === false || val === "false")
+                valid = !(val === false || val === "false");
                 flag = attrs.edValidityFlag || "edValidity";
                 ngModelCtrl.$setValidity(flag, valid);
             }
