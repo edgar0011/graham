@@ -211,6 +211,7 @@ angular.module("ed.ui.directives")
         var model = $parse(attrs.edValidity);
 
         var preventDirting = $parse(attrs.keepPristine)(scope);
+        var preventCommit = $parse(attrs.preventCommit)(scope);
 
         scope.$watch(model, function(newVal, oldVal) {
 
@@ -245,6 +246,9 @@ angular.module("ed.ui.directives")
             if ( !preventDirting ) {
                 element.removeClass("ng-pristine");
                 element.removeClass("ng-untouched");
+
+                element.addClass("ng-dirty");
+                element.addClass("ng-touched");
             }
 
             if (valid) {
@@ -260,7 +264,7 @@ angular.module("ed.ui.directives")
 
         ngModelCtrl.$parsers.unshift(function(value) {
             var valid = validate();
-            return valid ? value :  undefined;
+            return valid || !preventCommit ? value : undefined;
         });
 
         ngModelCtrl.$formatters.unshift(function(value) {
