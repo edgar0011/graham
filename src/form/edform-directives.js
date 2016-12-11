@@ -272,4 +272,38 @@ angular.module("ed.ui.directives")
             return value;
         });
     }
+})
+
+.directive('edAmount', function($filter) {
+    return {
+        restrict:"A",
+        require: 'ngModel',
+        link: function(scope, element, attrs, ctrl) {
+            var decimal = parseInt(attrs.decimal) || 2;
+            var filterFunction = attrs.filterFunction && scope.$eval(attrs.filterFunction) || function(value, decimal){
+                    return $filter('number')(value, decimal) || value;
+                };
+
+            function filterValue(value) {
+                value = parseFloat(value.toString());
+                return filterFunction(value, decimal);
+            }
+
+            ctrl.$formatters.unshift(function(modelValue) {
+                var formattedValue =  filterValue(ctrl.$modelValue) ;
+                element.val(formattedValue);
+                return formattedValue;
+            });
+
+            element.on('focus', function () {
+                element.val(ctrl.$modelValue);
+            });
+
+            element.on('blur', function () {
+                var formattedValue =  filterValue(ctrl.$modelValue);
+                element.val(formattedValue);
+            });
+
+        }
+    };
 });
